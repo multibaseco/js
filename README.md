@@ -12,11 +12,11 @@
 Multibase JS is the first JavaScript SDK for merging your user off-chain, product interactions with on-chain transactions and activity.
 
 ### Table of contents
- - [✅ Getting started](#started)
- - [💻 Usage](#usage)
- - [⛓️ Supported chains](#chains) 
- - [❓ Feedback and Support](#support)
-## [✅ Installation](#started)
+ - [✅ Getting started](#-started)
+ - [💻 Usage](#-usage)
+ - [⛓️ Supported chains](#-chains) 
+ - [❓ Feedback and Support](#-support)
+## [✅ Installation](#-started)
 #### Get a Multibase account
 To use the Multibase JS SDK, the first thing you have to do is [sign up for a Mutlibase account](https://multibase.co?request=true). Go to the homepage and fill out our form, and we will get back to you ASAP to get you set up.
 #### Install the Node Package
@@ -30,7 +30,7 @@ npm install @multibase/js
 yarn add @multibase/js
 ```
 
-## [💻 Usage](#usage)
+## [💻 Usage](#-usage)
 ### Initialize the SDK
 Multibase JS must be initialized before you can call any function. You will need your Multibase project's write API key.
 ```
@@ -103,7 +103,7 @@ const eventProperties = {
 }
 track("Link Click", eventProperties)
 ```
-## [Supported chains](#chains)
+## [Supported chains](#-chains)
 | Chain|ID|
 |--|--|
 |Ethereum|1|
@@ -112,7 +112,7 @@ track("Link Click", eventProperties)
 |Avalanche|43114|
 |BSC|250|
 |Fantom|56|
-## [❓ Feedback and Support](#support)
+## [❓ Feedback and Support](#-support)
 If you are having trouble setting up the Multibase SDK at all, please reach out to us for help. Here are some helpful links:
 
  - [Live Intercom support on our homepage](https://www.multibase.co)
