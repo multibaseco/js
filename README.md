@@ -12,10 +12,10 @@
 Multibase JS is the first JavaScript SDK for merging your user off-chain, product interactions with on-chain transactions and activity.
 
 ### Table of contents
- - [✅ Getting started](#-started)
+ - [✅ Getting started](#-getting-started)
  - [💻 Usage](#-usage)
- - [⛓️ Supported chains](#-chains) 
- - [❓ Feedback and Support](#-support)
+ - [⛓️ Supported chains](#-supported-chains) 
+ - [❓ Feedback and Support](#-feedback-and-support)
 
 ## [✅ Getting started](#-started)
 #### Get a Multibase account
