@@ -1,5 +1,7 @@
 <p align="center">
+
 # Multibase JS SDK (@multibase/js)
+
 &nbsp;
 &nbsp;
 <img src="https://cdn.multibase.co/shared/github/icon.png" alt="Multibase logo" width=150 />
