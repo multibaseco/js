@@ -1,0 +1,33 @@
+{
+    "include": [
+        "src",
+        "types"
+    ],
+    "compilerOptions": {
+        "module": "esnext",
+        "lib": [
+            "dom",
+            "esnext"
+        ],
+        "importHelpers": true,
+        "declaration": true,
+        "sourceMap": true,
+        "rootDir": "./src",
+        "strict": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "moduleResolution": "node",
+        "jsx": "react",
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "types": [
+            "node",
+            "./node_modules/user-agent-data-types"
+        ]
+    }
+}
