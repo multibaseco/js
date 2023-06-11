@@ -104,6 +104,7 @@ const eventProperties = {
 }
 track("Link Click", eventProperties)
 ```
+
 ## [Supported chains](#-chains)
 | Chain|ID|
 |--|--|
@@ -113,6 +114,7 @@ track("Link Click", eventProperties)
 |Avalanche|43114|
 |BSC|250|
 |Fantom|56|
+
 ## [❓ Feedback and Support](#-support)
 If you are having trouble setting up the Multibase SDK at all, please reach out to us for help. Here are some helpful links:
 
