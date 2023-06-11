@@ -23,18 +23,18 @@ To use the Multibase JS SDK, the first thing you have to do is [sign up for a Mu
 #### Install the Node Package
 When you have your account, you're ready to go! To get started with using Multibase JS, you'll need to install the package to your project with NPM/yarn.
 
-```
-// npm
+```sh
+# npm
 npm install @multibase/js
 
-// yarn
+# yarn
 yarn add @multibase/js
 ```
 
 ## [💻 Usage](#-usage)
 ### Initialize the SDK
 Multibase JS must be initialized before you can call any function. You will need your Multibase project's write API key.
-```
+```ts
 import { init } from "@multibase/js"
 
 init(YOUR_WRITE_API_KEY)
@@ -45,7 +45,7 @@ To associate product events with users, you have to use the `identify` function.
 To connect a user by their on-chain address, we must provide an `address` and `chain` parameter. For the `chain` parameter, view our [supported chains](#chains). 
 
 When you identify user by wallet address and chain, they will automatically be synchronized in your Multibase workspace.
-```
+```ts
 import { identify } from "@multibase/js"
 
 // Basic identifying call
@@ -69,7 +69,7 @@ identify({
 ```
 #### Identify by custom user ID
 You may want to choose to identify a user by a unique ID that is connected to your database. This can be used at the same time with an on-chain identifier.
-```
+```ts
 // Basic identifying call
 identify({
 	type: "custom",
@@ -91,7 +91,7 @@ identify({
 Tracking product events from your users is the key to understanding product usage over time, and understanding how off-chain activity converts to on-chain transactions. You can track and event with a custom string, or you can track properties along with the string.
 
 In your Multibase dashboard, these events will appear alongside on-chain events.
-```
+```ts
 import { track } from "@multibase/js"
 
 // Basic tracking call
