@@ -1,15 +1,15 @@
+
+<h1 align="center">Multibase JS SDK (@multibase/js)</h1>
+
+&nbsp;
+&nbsp;
 <p align="center">
-
-# Multibase JS SDK (@multibase/js)
-
-&nbsp;
-&nbsp;
 <img src="https://cdn.multibase.co/shared/github/icon.png" alt="Multibase logo" width=150 />
+</p>
 &nbsp;
 &nbsp;
 
 Multibase JS is the first JavaScript SDK for merging your user off-chain, product interactions with on-chain transactions and activity.
-</p>
 
 ### Table of contents
  - [✅ Getting started](#started)
