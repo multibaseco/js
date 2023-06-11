@@ -17,8 +17,6 @@ Multibase JS is the first JavaScript SDK for merging your user off-chain, produc
  - [⛓️ Supported chains](#-chains) 
  - [❓ Feedback and Support](#-support)
 
----
-
 ## [✅ Getting started](#-started)
 #### Get a Multibase account
 To use the Multibase JS SDK, the first thing you have to do is [sign up for a Mutlibase account](https://multibase.co?request=true). Go to the homepage and fill out our form, and we will get back to you ASAP to get you set up.
