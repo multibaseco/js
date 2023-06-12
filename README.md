@@ -50,15 +50,15 @@ import { identify } from "@multibase/js"
 
 // Basic identifying call
 identify({
-	type: "address",
+    type: "address",
     address: "0xd8da6bf26964af9d7eed9e03e53415d37aa96045",
     chain: 1
 })
 
 // Identify with properties
 const userProperties = {
-	"plan": "Premium User",
-    "email": "vitalik@ethereum.org"
+    plan: "Premium User",
+    email: "vitalik@ethereum.org"
 }
 identify({
     type: "address",
@@ -72,17 +72,17 @@ You may want to choose to identify a user by a unique ID that is connected to yo
 ```ts
 // Basic identifying call
 identify({
-	type: "custom",
+    type: "custom",
     id: "user_123"
 })
 
 // Identify with properties
 const userProperties = {
-	"plan": "Premium User",
-    "email": "vitalik@ethereum.org"
+    plan: "Premium User",
+    email: "vitalik@ethereum.org"
 }
 identify({
-	type: "custom",
+    type: "custom",
     id: "user_123",
     properties: userProperties
 })
@@ -99,8 +99,8 @@ track("Link Click")
 
 // Track with event properties
 const eventProperties = {
-	"type": "Call to Action",
-    "timeToClick": 10
+    type: "Call to Action",
+    timeToClick: 10
 }
 track("Link Click", eventProperties)
 ```
