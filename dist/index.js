@@ -7417,13 +7417,13 @@ var ajvExports = ajv$1.exports;
 var Ajv = /*@__PURE__*/getDefaultExportFromCjs(ajvExports);
 
 var ajv = new Ajv({ allErrors: true });
-var sdkLogUrl = "http://localhost:8001";
+var sdkLogUrl = "https://api.multibase.co/v1/log-sdk" ;
 var chains = [ethereum, polygon, arbitrum, fantom, bsc, avalanche];
 var CONFIG = {
     url: sdkLogUrl,
     chains: chains,
     name: "@multibase/js",
-    version: "0.1.2",
+    version: "0.1.3",
 };
 
 // Unique ID creation requires a high quality random # generator. In the browser we therefore
