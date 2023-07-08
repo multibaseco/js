@@ -12,7 +12,7 @@ type campaign = {
 function getCampaignFromURL() {
     const urlParams = new URLSearchParams(window.location.search);
     const keys = ["utm_campaign", "utm_source", "utm_medium", "utm_term", "utm_content"]
-    if (!keys.every(key => urlParams.has(key))) {
+    if (!keys.some(key => urlParams.has(key))) {
         return null;
     }
 
