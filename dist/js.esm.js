@@ -7424,7 +7424,7 @@ var CONFIG = {
     url: sdkLogUrl,
     chains: chains,
     name: "@multibase/js",
-    version: "0.1.4",
+    version: "0.1.6",
 };
 
 // Unique ID creation requires a high quality random # generator. In the browser we therefore
