@@ -55,6 +55,7 @@ class MultibaseCore implements IMultibaseCore {
 
     async executeEventQueue() {
         if (!this.config.enabled) return
+        if(this.queuedEvents.length === 0) return
         await postRequest({
             endpoint: "event/track",
             body: {
@@ -118,11 +119,12 @@ async function identify(params: IdentifyParams) {
         logError(message)
         return
     }
-    try {
+    // try {
         await multibase.identify(validatedParams)
-    } catch {
-        logError("There was an unknown error identifying the user")
-    }
+    // } catch (e) {
+    //     console.error(e)
+    //     logError("There was an unknown error identifying the user")
+    // }
 }
 
 export { init, track, identify }

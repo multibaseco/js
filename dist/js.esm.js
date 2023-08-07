@@ -13375,27 +13375,14 @@ function validateIdentifyParams(params) {
     if (params == null) {
         return { isValid: false, message: "Missing parameters for 'identify' call.", params: null };
     }
-    if (params.type == null || (params.type !== "custom" && params.type !== "address")) {
-        return { isValid: false, message: "Missing or invalid 'type' parameter for 'identify' call.", params: null };
-    }
-    if (params.type === "custom") {
-        var id = params.id, properties = params.properties;
-        if (id == null || typeof id !== 'string') {
-            return { isValid: false, message: "Missing or invalid 'id' parameter for 'identify' call.", params: null };
-        }
-        return { isValid: true, message: null, params: { type: "custom", id: id, properties: properties } };
-    }
-    if (params.type === "address") {
-        var address = params.address, chain = params.chain, properties = params.properties;
-        var validAddress = getValidAddress(address);
-        if (validAddress == null)
-            return { isValid: false, message: "Missing or invalid 'address' parameter for 'identify' call.", params: null };
-        var validChain = getValidChain(chain);
-        if (validChain == null)
-            return { isValid: false, message: "Missing or invalid 'chain' parameter for 'identify' call.", params: null };
-        return { isValid: true, message: null, params: { type: "address", address: validAddress, chain: validChain, properties: properties } };
-    }
-    return { isValid: false, message: "Missing or invalid 'type' parameter for 'identify' call.", params: null };
+    var address = params.address, chain = params.chain, properties = params.properties;
+    var validAddress = getValidAddress(address);
+    if (validAddress == null)
+        return { isValid: false, message: "Missing or invalid 'address' parameter for 'identify' call.", params: null };
+    var validChain = getValidChain(chain);
+    if (validChain == null)
+        return { isValid: false, message: "Missing or invalid 'chain' parameter for 'identify' call.", params: null };
+    return { isValid: true, message: null, params: { address: validAddress, chain: validChain, properties: properties } };
 }
 function validateAddress(address) {
     return /^(0x)?[0-9a-f]{40}$/i.test(address);
@@ -13510,12 +13497,6 @@ var multibaseConfigSchema = {
     },
     required: [],
     additionalProperties: false,
-    // errorMessage: {
-    //     properties: {
-    //         enabled: "config.enabled must be boolean",
-    //         debug: "config.debug must be boolean",
-    //     },
-    // },
 };
 var validateMultibaseConfig = ajv.compile(multibaseConfigSchema);
 var defaultConfig = {
@@ -13542,24 +13523,18 @@ var Event = /** @class */ (function () {
 }());
 var Identify = /** @class */ (function () {
     function Identify(params) {
-        var type = params.type, properties = params.properties;
-        this.type = type;
+        var properties = params.properties;
         this.timestamp = getExactUTCTimeISO();
         this.properties = properties;
         this.context = generateContext();
-        if (type === "custom")
-            this.id = params.id;
-        if (type === "address") {
-            this.address = params.address;
-            this.chain = params.chain;
-        }
+        this.address = params.address;
+        this.chain = params.chain;
     }
     Identify.prototype.toJSON = function () {
         return {
             timestamp: this.timestamp,
             properties: this.properties,
             context: this.context,
-            type: this.type,
             id: this.id,
             address: this.address,
             chain: this.chain,
@@ -13569,19 +13544,15 @@ var Identify = /** @class */ (function () {
 }());
 var User = /** @class */ (function () {
     function User(_a) {
-        var anonymousId = _a.anonymousId, id = _a.id, address = _a.address, chain = _a.chain, properties = _a.properties;
+        var anonymousId = _a.anonymousId, address = _a.address, properties = _a.properties;
         this.anonymousId = anonymousId;
-        this.id = id;
         this.address = address;
-        this.chain = chain;
         this.properties = properties;
     }
     User.prototype.toJSON = function () {
         return {
             anonymousId: this.anonymousId,
-            userId: this.id,
             address: this.address,
-            chain: this.chain,
         };
     };
     return User;
@@ -13593,14 +13564,10 @@ function getSavedUser() {
         mbId = generateUserId();
     }
     setSaved('mbjs_anonymous_id', mbId);
-    var uid = getSaved('mbjs_user_id');
     var address = getSaved('mbjs_address');
-    var chain = getSaved('mbjs_chain');
     var user = new User({
         anonymousId: mbId,
-        id: uid,
         address: address,
-        chain: chain,
         properties: {},
     });
     return user;
@@ -13611,39 +13578,12 @@ function resetAnonymousId() {
 function associateUser(params) {
     if (params == null)
         return;
-    if (params.type === "custom") {
-        return associateUserByCustomID(params.id);
-    }
-    if (params.type === "address") {
-        return associateUserByAddress(params.address, params.chain);
-    }
-}
-function associateUserByCustomID(id) {
-    var existingId = getSaved('mbjs_user_id');
-    if (existingId == null) {
-        setSaved('mbjs_user_id', id);
-        return;
-    }
-    if (id === existingId)
-        return;
-    resetAnonymousId();
-    setSaved('mbjs_user_id', id);
-}
-function associateUserByAddress(address, chain) {
+    var address = params.address;
     var existingAddress = getSaved("mbjs_address");
-    var existingChain = getSaved("mbjs_chain");
-    if (existingAddress === address && existingChain === address)
+    if (existingAddress === address)
         return;
-    if (existingAddress == null && existingChain == null) {
-        setSaved("mbjs_address", address);
-        setSaved("mbjs_chain", chain);
-        return;
-    }
-    // we know here that existingAddress is not null and existingChain is not null
-    // we also know either existingAddress != address or existingChain != chain
     resetAnonymousId();
     setSaved("mbjs_address", address);
-    setSaved("mbjs_chain", chain);
 }
 
 function postRequest(_a) {
@@ -13748,6 +13688,8 @@ var MultibaseCore = /** @class */ (function () {
                     case 0:
                         if (!this.config.enabled)
                             return [2 /*return*/];
+                        if (this.queuedEvents.length === 0)
+                            return [2 /*return*/];
                         return [4 /*yield*/, postRequest({
                                 endpoint: "event/track",
                                 body: {
@@ -13816,8 +13758,8 @@ function track(event, properties) {
 function identify(params) {
     return __awaiter(this, void 0, void 0, function () {
         var validationObj, isValid, message, validatedParams;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0:
                     if (multibase == null) {
                         logError("Multibase SDK not initialized");
@@ -13829,18 +13771,17 @@ function identify(params) {
                         logError(message);
                         return [2 /*return*/];
                     }
-                    _b.label = 1;
+                    // try {
+                    return [4 /*yield*/, multibase.identify(validatedParams)
+                        // } catch (e) {
+                        //     console.error(e)
+                        //     logError("There was an unknown error identifying the user")
+                        // }
+                    ];
                 case 1:
-                    _b.trys.push([1, 3, , 4]);
-                    return [4 /*yield*/, multibase.identify(validatedParams)];
-                case 2:
-                    _b.sent();
-                    return [3 /*break*/, 4];
-                case 3:
-                    _b.sent();
-                    logError("There was an unknown error identifying the user");
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
+                    // try {
+                    _a.sent();
+                    return [2 /*return*/];
             }
         });
     });

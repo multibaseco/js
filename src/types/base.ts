@@ -27,12 +27,6 @@ const multibaseConfigSchema = {
     },
     required: [],
     additionalProperties: false,
-    // errorMessage: {
-    //     properties: {
-    //         enabled: "config.enabled must be boolean",
-    //         debug: "config.debug must be boolean",
-    //     },
-    // },
 }
 export const validateMultibaseConfig = ajv.compile(multibaseConfigSchema)
 
@@ -80,15 +74,12 @@ export class Event {
 }
 
 export type IdentifyParams =
-    | { type: "custom", id: string, properties?: object }
-    | { type: "address", address: string, chain: string | number; properties?: object }
+    | { address: string, chain: string | number; properties?: object }
 
 export type ValidIdentifyParameters =
-    | { type: "custom", id: string, properties?: object }
-    | { type: "address", address: string, chain: string; properties?: object }
+    | { address: string, chain: string; properties?: object }
 
 export class Identify {
-    type: string;
     timestamp: string;
     context: object;
     id?: string;
@@ -97,16 +88,12 @@ export class Identify {
     properties?: object;
 
     constructor(params: ValidIdentifyParameters) {
-        const { type, properties } = params;
-        this.type = type;
+        const { properties } = params;
         this.timestamp = getExactUTCTimeISO();
         this.properties = properties;
         this.context = generateContext();
-        if (type === "custom") this.id = params.id;
-        if (type === "address") {
-            this.address = params.address;
-            this.chain = params.chain;
-        }
+        this.address = params.address;
+        this.chain = params.chain;
     }
 
     toJSON(): object {
@@ -114,7 +101,6 @@ export class Identify {
             timestamp: this.timestamp,
             properties: this.properties,
             context: this.context,
-            type: this.type,
             id: this.id,
             address: this.address,
             chain: this.chain,
@@ -124,25 +110,20 @@ export class Identify {
 
 export class User {
     anonymousId: string;
-    id?: string;
     address?: string;
     chain?: string;
     properties: object;
 
-    constructor({ anonymousId, id, address, chain, properties }: { anonymousId: string, id?: string, address?: string, chain?: string, properties: object }) {
+    constructor({ anonymousId, address, properties }: { anonymousId: string, address?: string, chain?: string, properties: object }) {
         this.anonymousId = anonymousId;
-        this.id = id;
         this.address = address;
-        this.chain = chain;
         this.properties = properties;
     }
 
     toJSON(): object {
         return {
             anonymousId: this.anonymousId,
-            userId: this.id,
             address: this.address,
-            chain: this.chain,
         }
     }
 }

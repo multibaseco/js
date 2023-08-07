@@ -38,27 +38,16 @@ export declare class Event {
     toJSON(): object;
 }
 export type IdentifyParams = {
-    type: "custom";
-    id: string;
-    properties?: object;
-} | {
-    type: "address";
     address: string;
     chain: string | number;
     properties?: object;
 };
 export type ValidIdentifyParameters = {
-    type: "custom";
-    id: string;
-    properties?: object;
-} | {
-    type: "address";
     address: string;
     chain: string;
     properties?: object;
 };
 export declare class Identify {
-    type: string;
     timestamp: string;
     context: object;
     id?: string;
@@ -70,13 +59,11 @@ export declare class Identify {
 }
 export declare class User {
     anonymousId: string;
-    id?: string;
     address?: string;
     chain?: string;
     properties: object;
-    constructor({ anonymousId, id, address, chain, properties }: {
+    constructor({ anonymousId, address, properties }: {
         anonymousId: string;
-        id?: string;
         address?: string;
         chain?: string;
         properties: object;

@@ -50,7 +50,6 @@ import { identify } from "@multibase/js"
 
 // Basic identifying call
 identify({
-    type: "address",
     address: "0xd8da6bf26964af9d7eed9e03e53415d37aa96045",
     chain: 1
 })
@@ -61,32 +60,12 @@ const userProperties = {
     email: "vitalik@ethereum.org"
 }
 identify({
-    type: "address",
     address: "0xd8da6bf26964af9d7eed9e03e53415d37aa96045",
     chain: 1,
     properties: userProperties
 })
 ```
-#### Identify by custom user ID
-You may want to choose to identify a user by a unique ID that is connected to your database. This can be used at the same time with an on-chain identifier.
-```ts
-// Basic identifying call
-identify({
-    type: "custom",
-    id: "user_123"
-})
 
-// Identify with properties
-const userProperties = {
-    plan: "Premium User",
-    email: "vitalik@ethereum.org"
-}
-identify({
-    type: "custom",
-    id: "user_123",
-    properties: userProperties
-})
-```
 ### Track events
 Tracking product events from your users is the key to understanding product usage over time, and understanding how off-chain activity converts to on-chain transactions. You can track and event with a custom string, or you can track properties along with the string.
 

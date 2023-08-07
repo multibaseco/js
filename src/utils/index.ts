@@ -88,28 +88,13 @@ export function validateIdentifyParams(params: IdentifyParams): | {
     if (params == null) {
         return { isValid: false, message: "Missing parameters for 'identify' call.", params: null };
     }
-    if (params.type == null || (params.type !== "custom" && params.type !== "address")) {
-        return { isValid: false, message: "Missing or invalid 'type' parameter for 'identify' call.", params: null };
-    }
 
-    if (params.type === "custom") {
-        const { id, properties } = params;
-        if (id == null || typeof id !== 'string') {
-            return { isValid: false, message: "Missing or invalid 'id' parameter for 'identify' call.", params: null };
-        }
-        return { isValid: true, message: null, params: { type: "custom", id, properties } };
-    }
-
-    if (params.type === "address") {
-        const { address, chain, properties } = params;
-        const validAddress = getValidAddress(address);
-        if (validAddress == null) return { isValid: false, message: "Missing or invalid 'address' parameter for 'identify' call.", params: null };
-        const validChain = getValidChain(chain);
-        if (validChain == null) return { isValid: false, message: "Missing or invalid 'chain' parameter for 'identify' call.", params: null };
-        return { isValid: true, message: null, params: { type: "address", address: validAddress, chain: validChain, properties } };
-    }
-
-    return { isValid: false, message: "Missing or invalid 'type' parameter for 'identify' call.", params: null };
+    const { address, chain, properties } = params;
+    const validAddress = getValidAddress(address);
+    if (validAddress == null) return { isValid: false, message: "Missing or invalid 'address' parameter for 'identify' call.", params: null };
+    const validChain = getValidChain(chain);
+    if (validChain == null) return { isValid: false, message: "Missing or invalid 'chain' parameter for 'identify' call.", params: null };
+    return { isValid: true, message: null, params: { address: validAddress, chain: validChain, properties } };
 }
 
 export function validateAddress(address: string) {
