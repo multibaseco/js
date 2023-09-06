@@ -12,7 +12,11 @@ export type MultibaseConfig = {
     enabled: boolean;
     debug: boolean;
 };
-export declare const validateMultibaseConfig: import("ajv").ValidateFunction<unknown>;
+export declare const isMultibaseConfigValid: (mc: MultibaseConfig) => boolean;
+export declare const multibaseConfigErrors: (mc: MultibaseConfig) => {
+    instancePath: string;
+    message: string;
+}[];
 export interface IMultibaseCore {
     apiKey: string;
     config: MultibaseConfig;

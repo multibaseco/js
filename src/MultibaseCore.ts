@@ -1,4 +1,4 @@
-import { Event, IMultibaseCore, Identify, IdentifyParams, MultibaseConfig, User, ValidIdentifyParameters, defaultConfig, validateMultibaseConfig } from "./types/base"
+import { Event, IMultibaseCore, Identify, IdentifyParams, MultibaseConfig, User, ValidIdentifyParameters, defaultConfig, isMultibaseConfigValid, multibaseConfigErrors } from "./types/base"
 import { associateUser, getSavedUser } from "./utils/user"
 import { postRequest } from "./utils/connector"
 import { debugLog, logError, validateIdentifyParams } from "./utils"
@@ -81,12 +81,19 @@ class MultibaseCore implements IMultibaseCore {
 
 function init(apiKey: string, configuration?: MultibaseConfig) {
     if (typeof window === 'undefined') return
+    if(apiKey == null || apiKey === "" || typeof apiKey !== "string"){
+        throw new Error("Invalid or empty API key")
+    }
+    
     const mc: MultibaseConfig = {
         ...defaultConfig,
         ...configuration || {},
     }
-    if (!validateMultibaseConfig(mc)) {
-        const errors = validateMultibaseConfig.errors || []
+
+    const isValid = isMultibaseConfigValid(mc)
+
+    if (!isValid){
+        const errors = multibaseConfigErrors(mc)
         for (let err of errors) {
             logError(`Error in ${err.instancePath}: ${err.message}`);
         }
@@ -119,12 +126,7 @@ async function identify(params: IdentifyParams) {
         logError(message)
         return
     }
-    // try {
-        await multibase.identify(validatedParams)
-    // } catch (e) {
-    //     console.error(e)
-    //     logError("There was an unknown error identifying the user")
-    // }
+    await multibase.identify(validatedParams)
 }
 
 export { init, track, identify }

@@ -5,6 +5,7 @@ import replace from "@rollup/plugin-replace"
 import sourcemaps from "rollup-plugin-sourcemaps"
 import typescript from "rollup-plugin-typescript2"
 import pkg from "./package.json"
+import terser from "@rollup/plugin-terser"
 
 export default [
     {
@@ -37,7 +38,8 @@ export default [
             commonjs(),
             json(),
             sourcemaps(),
-            typescript()
+            typescript(),
+            terser(),
         ]
     },
     {
@@ -70,7 +72,8 @@ export default [
             commonjs(),
             json(),
             sourcemaps(),
-            typescript()
+            typescript(),
+            terser(),
         ]
     }
 ]

@@ -1,8 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
-import moment from 'moment';
 import Cookies from 'js-cookie';
 import { CONFIG } from '../constants';
 import { IdentifyParams, ValidIdentifyParameters } from '../types/base';
+import { format } from 'date-fns';
+import { utcToZonedTime } from 'date-fns-tz';
 
 export function getSaved(key: string) {
     // first check if cookie exists
@@ -60,9 +61,13 @@ export function generateUserId() {
     return uuidv4();
 }
 
+// export function getExactUTCTimeISO() {
+//     const nowUTC = moment().utc().format("YYYY-MM-DD HH:mm:ss.SSS");
+//     return nowUTC;
+// }
 export function getExactUTCTimeISO() {
-    const nowUTC = moment().utc().format("YYYY-MM-DD HH:mm:ss.SSS");
-    return nowUTC;
+    const utcDate = utcToZonedTime(new Date(), 'Etc/UTC');
+    return format(utcDate, 'yyyy-MM-dd HH:mm:ss.SSS');
 }
 
 export function debugLog(message: string, debug: boolean) {

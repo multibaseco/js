@@ -1,6 +1,4 @@
 import { arbitrum, avalanche, bsc, ethereum, fantom, polygon } from "./chains";
-import Ajv from "ajv"
-export const ajv = new Ajv({allErrors: true})
 
 const environment: string = process.env.NODE_ENV || "development";
 const sdkLogUrl: string = environment === "production" ? "https://api.multibase.co/v1/log-sdk" : "http://localhost:8001";

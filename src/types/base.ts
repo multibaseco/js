@@ -1,4 +1,3 @@
-import { ajv } from '../constants';
 import { getExactUTCTimeISO } from '../utils';
 import { generateContext } from '../utils/context';
 
@@ -19,16 +18,17 @@ export type MultibaseConfig = {
     debug: boolean;
 }
 
-const multibaseConfigSchema = {
-    type: "object",
-    properties: {
-        enabled: { type: "boolean" },
-        debug: { type: "boolean" },
-    },
-    required: [],
-    additionalProperties: false,
+export const isMultibaseConfigValid = (mc: MultibaseConfig) => {
+    if(mc.enabled != null && typeof mc.enabled !== 'boolean') return false
+    if(mc.debug != null && typeof mc.debug !== 'boolean') return false
+    return true
 }
-export const validateMultibaseConfig = ajv.compile(multibaseConfigSchema)
+
+export const multibaseConfigErrors = (mc: MultibaseConfig) => {
+    if(mc.enabled != null && typeof mc.enabled !== 'boolean') return [{ instancePath: 'enabled', message: 'enabled must be a boolean' }]
+    if(mc.debug != null && typeof mc.debug !== 'boolean') return [{ instancePath: 'debug', message: 'debug must be a boolean' }]
+    return []
+}
 
 export interface IMultibaseCore {
     apiKey: string;
