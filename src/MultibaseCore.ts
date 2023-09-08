@@ -55,7 +55,7 @@ class MultibaseCore implements IMultibaseCore {
 
     async executeEventQueue() {
         if (!this.config.enabled) return
-        if(this.queuedEvents.length === 0) return
+        if (this.queuedEvents.length === 0) return
         await postRequest({
             endpoint: "event/track",
             body: {
@@ -81,10 +81,7 @@ class MultibaseCore implements IMultibaseCore {
 
 function init(apiKey: string, configuration?: MultibaseConfig) {
     if (typeof window === 'undefined') return
-    if(apiKey == null || apiKey === "" || typeof apiKey !== "string"){
-        throw new Error("Invalid or empty API key")
-    }
-    
+
     const mc: MultibaseConfig = {
         ...defaultConfig,
         ...configuration || {},
@@ -92,13 +89,18 @@ function init(apiKey: string, configuration?: MultibaseConfig) {
 
     const isValid = isMultibaseConfigValid(mc)
 
-    if (!isValid){
+    if (!isValid) {
         const errors = multibaseConfigErrors(mc)
         for (let err of errors) {
             logError(`Error in ${err.instancePath}: ${err.message}`);
         }
         throw new TypeError("Invalid 'init' configuration.");
     }
+    
+    if (mc.enabled && (apiKey == null || apiKey === "" || typeof apiKey !== "string")) {
+        throw new Error("Invalid or empty API key")
+    }
+
     debugLog("Initializing Multibase SDK...", mc.debug)
     const sdkInstance = multibase
     if (sdkInstance != null) {
