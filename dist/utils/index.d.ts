@@ -20,3 +20,4 @@ export declare function validateAddress(address: string): boolean;
 export declare function getValidAddress(address: string): string | null;
 export declare function validateChain(chain: string | number): boolean;
 export declare function getValidChain(chain: string | number): string | null;
+export declare function isBlockedUA(): boolean;

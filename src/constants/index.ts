@@ -10,3 +10,29 @@ export const CONFIG = {
     name: "PACKAGE_NAME",
     version: "PACKAGE_VERSION",
 }
+
+export const BLOCKED_UAS = [
+    'ahrefsbot',
+    'baiduspider',
+    'bingbot',
+    'bingpreview',
+    'facebookexternal',
+    'petalbot',
+    'pinterest',
+    'prerender',
+    'screaming frog',
+    'yahoo! slurp',
+    'yandexbot',
+
+    'adsbot-google',
+    'apis-google',
+    'duplexweb-google',
+    'feedfetcher-google',
+    'google favicon',
+    'google web preview',
+    'google-read-aloud',
+    'googlebot',
+    'googleweblight',
+    'mediapartners-google',
+    'storebot-google'
+]

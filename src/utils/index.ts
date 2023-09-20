@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import Cookies from 'js-cookie';
-import { CONFIG } from '../constants';
+import { BLOCKED_UAS, CONFIG } from '../constants';
 import { IdentifyParams, ValidIdentifyParameters } from '../types/base';
 import { format } from 'date-fns';
 import { utcToZonedTime } from 'date-fns-tz';
@@ -142,4 +142,10 @@ export function getValidChain(chain: string | number) {
     }
 
     return null;
+}
+
+export function isBlockedUA() {
+    const userAgent = navigator.userAgent;
+    const ua = userAgent.toLowerCase();
+    return BLOCKED_UAS.some((b) => ua.includes(b));
 }

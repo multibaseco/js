@@ -1,7 +1,7 @@
 import { Event, IMultibaseCore, Identify, IdentifyParams, MultibaseConfig, User, ValidIdentifyParameters, defaultConfig, isMultibaseConfigValid, multibaseConfigErrors } from "./types/base"
 import { associateUser, getSavedUser } from "./utils/user"
 import { postRequest } from "./utils/connector"
-import { debugLog, logError, validateIdentifyParams } from "./utils"
+import { debugLog, isBlockedUA, logError, validateIdentifyParams } from "./utils"
 import { TypeError } from "./exceptions"
 
 let multibase: MultibaseCore | null = null
@@ -18,6 +18,12 @@ class MultibaseCore implements IMultibaseCore {
         this.config = configuration
     }
 
+    isDisabled(): boolean {
+        if(isBlockedUA()) return true
+        if(!this.config.enabled) return true
+        return false
+    }
+
     getUser(): User {
         return getSavedUser()
     }
@@ -27,7 +33,7 @@ class MultibaseCore implements IMultibaseCore {
     }
 
     addToEventQueue(event: string, properties: object) {
-        if (!this.config.enabled) return
+        if (this.isDisabled()) return
         debugLog(`Tracking event '${event}'...`, this.config.debug)
         const e = new Event({
             name: event,
@@ -39,7 +45,7 @@ class MultibaseCore implements IMultibaseCore {
     }
 
     startEventQueueTimer() {
-        if (!this.config.enabled) return
+        if (this.isDisabled()) return
         if (this.eventQueueTimer) {
             clearTimeout(this.eventQueueTimer)
         }
@@ -54,7 +60,7 @@ class MultibaseCore implements IMultibaseCore {
     }
 
     async executeEventQueue() {
-        if (!this.config.enabled) return
+        if (this.isDisabled()) return
         if (this.queuedEvents.length === 0) return
         await postRequest({
             endpoint: "event/track",
@@ -67,7 +73,7 @@ class MultibaseCore implements IMultibaseCore {
     }
 
     async identify(params: ValidIdentifyParameters) {
-        if (!this.config.enabled) return
+        if (this.isDisabled()) return
         const identify = new Identify(params)
         associateUser(params)
 

@@ -4,3 +4,4 @@ export declare const CONFIG: {
     name: string;
     version: string;
 };
+export declare const BLOCKED_UAS: string[];
