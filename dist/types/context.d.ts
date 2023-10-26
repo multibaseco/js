@@ -46,27 +46,27 @@ export interface Context {
         url?: string;
         link?: string;
     };
-    os?: {
-        name?: string;
-        version?: string;
-    };
-    device?: {
-        id?: string;
-        type?: string;
-        manufacturer?: string;
-        model?: string;
-    };
     screen?: {
         width?: number;
         height?: number;
         density?: number;
     };
     timezone?: string;
-    headers?: object;
-    network?: {
-        bluetooth?: boolean;
-        carrier?: string;
-        cellular?: boolean;
-        wifi?: boolean;
+    browser?: {
+        name?: string;
+        version?: string;
+    };
+    device?: {
+        type?: string;
+        vendor?: string;
+        model?: string;
+    };
+    engine?: {
+        name?: string;
+        version?: string;
+    };
+    os?: {
+        name?: string;
+        version?: string;
     };
 }
