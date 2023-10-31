@@ -1,3 +1,4 @@
+import { logError } from "."
 import { CONFIG } from "../constants"
 import { IMultibaseCore } from "../types/base"
 
@@ -20,6 +21,7 @@ export async function postRequest(
         })
         return res
     }catch{
-        throw new Error("There was an error")
+        logError("There was an error connecting to the server.")
     }
+    return null
 }
