@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import Cookies from 'js-cookie';
-import { BLOCKED_UAS, CONFIG } from '../constants';
+import { BLOCKED_UAS } from '../constants';
 import { IdentifyParams, ValidIdentifyParameters } from '../types/base';
 import { format } from 'date-fns';
 import { utcToZonedTime } from 'date-fns-tz';
@@ -94,12 +94,10 @@ export function validateIdentifyParams(params: IdentifyParams): | {
         return { isValid: false, message: "Missing parameters for 'identify' call.", params: null };
     }
 
-    const { address, chain, properties } = params;
+    const { address, properties } = params;
     const validAddress = getValidAddress(address);
     if (validAddress == null) return { isValid: false, message: "Missing or invalid 'address' parameter for 'identify' call.", params: null };
-    const validChain = getValidChain(chain);
-    if (validChain == null) return { isValid: false, message: "Missing or invalid 'chain' parameter for 'identify' call.", params: null };
-    return { isValid: true, message: null, params: { address: validAddress, chain: validChain, properties } };
+    return { isValid: true, message: null, params: { address: validAddress, properties } };
 }
 
 export function validateAddress(address: string) {
@@ -109,39 +107,6 @@ export function validateAddress(address: string) {
 export function getValidAddress(address: string) {
     if (!validateAddress(address)) return null;
     return address.toLowerCase();
-}
-
-export function validateChain(chain: string | number) {
-    // if chain is number, parse int and check
-    if (typeof chain === 'number') {
-        const chainInt = Math.floor(chain);
-        const isValid = CONFIG.chains.some((c) => c.id === chainInt);
-        return isValid;
-    }
-
-    if (typeof chain !== 'string') {
-        const isValid = CONFIG.chains.some((c) => c.validIds.includes(chain));
-        return isValid;
-    }
-
-    return false;
-}
-
-export function getValidChain(chain: string | number) {
-    if (typeof chain === 'number') {
-        const chainInt = Math.floor(chain);
-        const chainObj = CONFIG.chains.find((c) => c.id === chainInt);
-        if (chainObj == null) return null;
-        return chainObj!.multibaseId;
-    }
-
-    if (typeof chain === 'string') {
-        const chainObj = CONFIG.chains.find((c) => c.validIds.includes(chain));
-        if (chainObj == null) return null;
-        return chainObj!.multibaseId;
-    }
-
-    return null;
 }
 
 export function isBlockedUA() {

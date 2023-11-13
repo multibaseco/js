@@ -3,11 +3,6 @@ declare global {
         multibase: any;
     }
 }
-export type Chain = {
-    id: number;
-    multibaseId: string;
-    validIds: string[];
-};
 export type MultibaseConfig = {
     enabled: boolean;
     debug: boolean;
@@ -43,12 +38,10 @@ export declare class Event {
 }
 export type IdentifyParams = {
     address: string;
-    chain: string | number;
     properties?: object;
 };
 export type ValidIdentifyParameters = {
     address: string;
-    chain: string;
     properties?: object;
 };
 export declare class Identify {
@@ -56,7 +49,6 @@ export declare class Identify {
     context: object;
     id?: string;
     address?: string;
-    chain?: string;
     properties?: object;
     constructor(params: ValidIdentifyParameters);
     toJSON(): object;
@@ -64,12 +56,10 @@ export declare class Identify {
 export declare class User {
     anonymousId: string;
     address?: string;
-    chain?: string;
     properties: object;
     constructor({ anonymousId, address, properties }: {
         anonymousId: string;
         address?: string;
-        chain?: string;
         properties: object;
     });
     toJSON(): object;

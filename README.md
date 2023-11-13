@@ -14,7 +14,6 @@ Multibase JS is the first JavaScript SDK for merging your user off-chain, produc
 ### Table of contents
  - [✅ Getting started](#-getting-started)
  - [💻 Usage](#-usage)
- - [⛓️ Supported chains](#-supported-chains) 
  - [❓ Feedback and Support](#-feedback-and-support)
 
 ## [✅ Getting started](#-started)
@@ -40,18 +39,17 @@ import { init } from "@multibase/js"
 init(YOUR_WRITE_API_KEY)
 ```
 ### Identify users
-To associate product events with users, you have to use the `identify` function. You can identify a user by wallet address and chain, custom ID string, or both.
+To associate product events with users, you have to use the `identify` function.
 #### Identify by wallet and chain
-To connect a user by their on-chain address, we must provide an `address` and `chain` parameter. For the `chain` parameter, view our [supported chains](#chains). 
+To connect a user by their on-chain address, we must provide an `address` parameter.
 
-When you identify user by wallet address and chain, they will automatically be synchronized in your Multibase workspace.
+When you identify user by wallet address, they will automatically be synchronized in your Multibase workspace. Upon import, Multibase will sync all on-chain data on every chain where a user has sent at least one transaction.
 ```ts
 import { identify } from "@multibase/js"
 
 // Basic identifying call
 identify({
-    address: "0xd8da6bf26964af9d7eed9e03e53415d37aa96045",
-    chain: 1
+    address: "0xd8da6bf26964af9d7eed9e03e53415d37aa96045"
 })
 
 // Identify with properties
@@ -61,7 +59,6 @@ const userProperties = {
 }
 identify({
     address: "0xd8da6bf26964af9d7eed9e03e53415d37aa96045",
-    chain: 1,
     properties: userProperties
 })
 ```
@@ -83,16 +80,6 @@ const eventProperties = {
 }
 track("Link Click", eventProperties)
 ```
-
-## [Supported chains](#-chains)
-| Chain|ID|
-|--|--|
-|Ethereum|1|
-|Polygon|137|
-|Arbitrum|42161|
-|Avalanche|43114|
-|BSC|250|
-|Fantom|56|
 
 ## [❓ Feedback and Support](#-support)
 If you are having trouble setting up the Multibase SDK at all, please reach out to us for help. Here are some helpful links:

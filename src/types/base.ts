@@ -7,12 +7,6 @@ declare global {
     }
 }
 
-export type Chain = {
-    id: number;
-    multibaseId: string;
-    validIds: string[];
-}
-
 export type MultibaseConfig = {
     enabled: boolean;
     debug: boolean;
@@ -74,17 +68,16 @@ export class Event {
 }
 
 export type IdentifyParams =
-    | { address: string, chain: string | number; properties?: object }
+    | { address: string; properties?: object }
 
 export type ValidIdentifyParameters =
-    | { address: string, chain: string; properties?: object }
+    | { address: string; properties?: object }
 
 export class Identify {
     timestamp: string;
     context: object;
     id?: string;
     address?: string;
-    chain?: string;
     properties?: object;
 
     constructor(params: ValidIdentifyParameters) {
@@ -93,7 +86,6 @@ export class Identify {
         this.properties = properties;
         this.context = generateContext();
         this.address = params.address;
-        this.chain = params.chain;
     }
 
     toJSON(): object {
@@ -103,7 +95,6 @@ export class Identify {
             context: this.context,
             id: this.id,
             address: this.address,
-            chain: this.chain,
         }
     }
 }
@@ -111,10 +102,9 @@ export class Identify {
 export class User {
     anonymousId: string;
     address?: string;
-    chain?: string;
     properties: object;
 
-    constructor({ anonymousId, address, properties }: { anonymousId: string, address?: string, chain?: string, properties: object }) {
+    constructor({ anonymousId, address, properties }: { anonymousId: string, address?: string, properties: object }) {
         this.anonymousId = anonymousId;
         this.address = address;
         this.properties = properties;
