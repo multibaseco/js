@@ -25,6 +25,6 @@ export function associateUser(params: ValidIdentifyParameters){
     const { address } = params;
     const existingAddress = getSaved("mbjs_address");
     if(existingAddress === address) return
-    resetAnonymousId();
+    if(existingAddress != null) resetAnonymousId();
     setSaved("mbjs_address", address);
 }
