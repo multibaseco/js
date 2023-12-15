@@ -49,6 +49,12 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
+"@multibase/js@file:":
+  version "0.1.14"
+  resolved "file:"
+  dependencies:
+    "@multibase/js" "file:"
+
 "@rollup/plugin-commonjs@^25.0.1":
   version "25.0.2"
   resolved "https://registry.npmjs.org/@rollup/plugin-commonjs/-/plugin-commonjs-25.0.2.tgz"
@@ -69,9 +75,9 @@
     "@rollup/pluginutils" "^5.0.1"
 
 "@rollup/plugin-node-resolve@^15.1.0":
-  version "15.1.0"
-  resolved "https://registry.npmjs.org/@rollup/plugin-node-resolve/-/plugin-node-resolve-15.1.0.tgz"
-  integrity sha512-xeZHCgsiZ9pzYVgAo9580eCGqwh/XCEUM9q6iQfGNocjgkufHAqC3exA+45URvhiYV8sBF9RlBai650eNs7AsA==
+  version "15.2.3"
+  resolved "https://registry.npmjs.org/@rollup/plugin-node-resolve/-/plugin-node-resolve-15.2.3.tgz"
+  integrity sha512-j/lym8nf5E21LwBT4Df1VD6hRO2L2iwUeUmP7litikRsVp1H6NWx20NEp0Y7su+7XGc476GnXXc4kFeZNGmaSQ==
   dependencies:
     "@rollup/pluginutils" "^5.0.1"
     "@types/resolve" "1.20.2"
@@ -477,7 +483,7 @@ rollup-plugin-typescript2@^0.34.1:
     semver "^7.3.7"
     tslib "^2.4.0"
 
-rollup@^1.20.0||^2.0.0, rollup@^1.20.0||^2.0.0||^3.0.0, rollup@^2.68.0||^3.0.0, rollup@^2.78.0||^3.0.0, "rollup@^2.x || ^3.x", rollup@>=0.31.2, rollup@>=1.26.3:
+rollup@^1.20.0||^2.0.0, rollup@^1.20.0||^2.0.0||^3.0.0, rollup@^2.68.0||^3.0.0, rollup@^2.78.0||^3.0.0||^4.0.0, "rollup@^2.x || ^3.x", rollup@>=0.31.2, rollup@>=1.26.3:
   version "2.79.1"
   resolved "https://registry.npmjs.org/rollup/-/rollup-2.79.1.tgz"
   integrity sha512-uKxbd0IhMZOhjAiD5oAFp7BqvkA4Dv47qpOCtaNvng4HBwdbWtdOh8f5nZNuk2rp51PMGk3bzfWu5oayNEuYnw==

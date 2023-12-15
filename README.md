@@ -40,7 +40,7 @@ init(YOUR_WRITE_API_KEY)
 ```
 ### Identify users
 To associate product events with users, you have to use the `identify` function.
-#### Identify by wallet and chain
+#### Identify by wallet
 To connect a user by their on-chain address, we must provide an `address` parameter.
 
 When you identify user by wallet address, they will automatically be synchronized in your Multibase workspace. Upon import, Multibase will sync all on-chain data on every chain where a user has sent at least one transaction.
