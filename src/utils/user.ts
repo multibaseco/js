@@ -16,15 +16,10 @@ export function getSavedUser():User {
     return user;
 }
 
-export function resetAnonymousId() {
-    setSaved('mbjs_anonymous_id', generateUserId());
-}
-
 export function associateUser(params: ValidIdentifyParameters){
     if(params == null) return
     const { address } = params;
     const existingAddress = getSaved("mbjs_address");
     if(existingAddress === address) return
-    if(existingAddress != null) resetAnonymousId();
     setSaved("mbjs_address", address);
 }
