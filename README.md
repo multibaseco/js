@@ -18,7 +18,7 @@ Multibase JS is the first JavaScript SDK for merging your user off-chain, produc
 
 ## [✅ Getting started](#-started)
 #### Get a Multibase account
-To use the Multibase JS SDK, the first thing you have to do is [sign up for a Mutlibase account](https://multibase.co?request=true). Go to the homepage and fill out our form, and we will get back to you ASAP to get you set up.
+To use the Multibase JS SDK, the first thing you have to do is [sign up for a Multibase account](https://multibase.co?request=true). Go to the homepage and fill out our form, and we will get back to you ASAP to get you set up.
 #### Install the Node Package
 When you have your account, you're ready to go! To get started with using Multibase JS, you'll need to install the package to your project with NPM/yarn.
 
@@ -64,7 +64,7 @@ identify({
 ```
 
 ### Track events
-Tracking product events from your users is the key to understanding product usage over time, and understanding how off-chain activity converts to on-chain transactions. You can track and event with a custom string, or you can track properties along with the string.
+Tracking product events from your users is the key to understanding product usage over time, and understanding how off-chain activity converts to on-chain transactions. You can track an event with a custom string, or you can track properties along with the string.
 
 In your Multibase dashboard, these events will appear alongside on-chain events.
 ```ts
