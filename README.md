@@ -48,18 +48,16 @@ When you identify user by wallet address, they will automatically be synchronize
 import { identify } from "@multibase/js"
 
 // Basic identifying call
-identify({
-    address: "0xd8da6bf26964af9d7eed9e03e53415d37aa96045"
-})
+identify("0xd8da6bf26964af9d7eed9e03e53415d37aa96045")
 
 // Identify with properties
 const userProperties = {
     plan: "Premium User",
     email: "vitalik@ethereum.org"
 }
-identify({
-    address: "0xd8da6bf26964af9d7eed9e03e53415d37aa96045",
-    properties: userProperties
+identify("0xd8da6bf26964af9d7eed9e03e53415d37aa96045", {
+    plan: "Premium User",
+    email: "vitalik@ethereum.org"
 })
 ```
 
@@ -74,16 +72,15 @@ import { track } from "@multibase/js"
 track("Link Click")
 
 // Track with event properties
-const eventProperties = {
+track("Link Click", {
     type: "Call to Action",
     timeToClick: 10
-}
-track("Link Click", eventProperties)
+})
 ```
 
 ## [❓ Feedback and Support](#-support)
 If you are having trouble setting up the Multibase SDK at all, please reach out to us for help. Here are some helpful links:
 
- - [Live Intercom support on our homepage](https://www.multibase.co)
+ - [Check out our homepage](https://www.multibase.co)
  - [Add an issue on GitHub](https://github.com/multibaseco/js/issues/new/choose)
  - [Email us directly](mailto:support@multibase.co)

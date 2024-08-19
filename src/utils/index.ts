@@ -1,7 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import Cookies from 'js-cookie';
 import { BLOCKED_UAS } from '../constants';
-import { IdentifyParams, ValidIdentifyParameters } from '../types/base';
 import { format } from 'date-fns';
 import { utcToZonedTime } from 'date-fns-tz';
 
@@ -79,25 +78,8 @@ export function logError(message: string) {
     console.error(`[@multibase/js] ${message}`);
 }
 
-export function validateIdentifyParams(params: IdentifyParams): | {
-    isValid: true,
-    message: null,
-    params: ValidIdentifyParameters,
-    properties?: object
-} | {
-    isValid: false,
-    message: string,
-    params: null,
-    properties?: object
-} {
-    if (params == null) {
-        return { isValid: false, message: "Missing parameters for 'identify' call.", params: null };
-    }
-
-    const { address, properties } = params;
-    const validAddress = getValidAddress(address);
-    if (validAddress == null) return { isValid: false, message: "Missing or invalid 'address' parameter for 'identify' call.", params: null };
-    return { isValid: true, message: null, params: { address: validAddress, properties } };
+export function logWarning(message: string) {
+    console.warn(`[@multibase/js] ${message}`);
 }
 
 export function validateAddress(address: string) {

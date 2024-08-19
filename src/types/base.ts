@@ -8,49 +8,41 @@ declare global {
 }
 
 export type MultibaseConfig = {
+    token: string;
     enabled: boolean;
     debug: boolean;
 }
 
-export const isMultibaseConfigValid = (mc: MultibaseConfig) => {
-    if(mc.enabled != null && typeof mc.enabled !== 'boolean') return false
-    if(mc.debug != null && typeof mc.debug !== 'boolean') return false
+export const isMultibaseConfigValid = (mc: Partial<MultibaseConfig> | undefined) => {
+    if (mc == null) return true
+    if (mc.enabled != null && typeof mc.enabled !== 'boolean') return false
+    if (mc.debug != null && typeof mc.debug !== 'boolean') return false
     return true
 }
 
-export const multibaseConfigErrors = (mc: MultibaseConfig) => {
-    if(mc.enabled != null && typeof mc.enabled !== 'boolean') return [{ instancePath: 'enabled', message: 'enabled must be a boolean' }]
-    if(mc.debug != null && typeof mc.debug !== 'boolean') return [{ instancePath: 'debug', message: 'debug must be a boolean' }]
+export const multibaseConfigErrors = (mc: Partial<MultibaseConfig> | undefined) => {
+    if (mc == null) return []
+    if (mc.enabled != null && typeof mc.enabled !== 'boolean') return [{ instancePath: 'enabled', message: 'enabled must be a boolean' }]
+    if (mc.debug != null && typeof mc.debug !== 'boolean') return [{ instancePath: 'debug', message: 'debug must be a boolean' }]
     return []
 }
 
-export interface IMultibaseCore {
-    apiKey: string;
-    config: MultibaseConfig;
-    queuedEvents: Array<Event>;
-    eventQueueTimer: any;
-
-    getAPIKey(): string;
-    getUser(): User;
-    addToEventQueue(event: string, properties: object): void;
-    startEventQueueTimer(): void;
-    executeEventQueue(): void;
-    identify(params: IdentifyParams): void;
-}
-
-
 export const defaultConfig: MultibaseConfig = {
+    token: "",
     enabled: true,
     debug: false,
 }
 
+export type Property = any
+export type Properties = Record<string, Property>;
+
 export class Event {
     timestamp: string;
     name: string;
-    properties: object;
-    context: object;
+    properties: Properties | undefined;
+    context: Properties;
 
-    constructor({ name, properties }: { name: string, properties: object }) {
+    constructor({ name, properties }: { name: string, properties?: Properties }) {
         this.timestamp = getExactUTCTimeISO();
         this.name = name;
         this.properties = properties;
@@ -68,24 +60,19 @@ export class Event {
 }
 
 export type IdentifyParams =
-    | { address: string; properties?: object }
-
-export type ValidIdentifyParameters =
-    | { address: string; properties?: object }
+    | { address: string; properties?: Properties }
 
 export class Identify {
     timestamp: string;
-    context: object;
-    id?: string;
     address?: string;
-    properties?: object;
+    properties?: Properties;
+    context: object;
 
-    constructor(params: ValidIdentifyParameters) {
-        const { properties } = params;
-        this.timestamp = getExactUTCTimeISO();
+    constructor(address: string, properties?: Properties) {
+        this.address = address;
         this.properties = properties;
+        this.timestamp = getExactUTCTimeISO();
         this.context = generateContext();
-        this.address = params.address;
     }
 
     toJSON(): object {
@@ -93,7 +80,6 @@ export class Identify {
             timestamp: this.timestamp,
             properties: this.properties,
             context: this.context,
-            id: this.id,
             address: this.address,
         }
     }

@@ -4,53 +4,39 @@ declare global {
     }
 }
 export type MultibaseConfig = {
+    token: string;
     enabled: boolean;
     debug: boolean;
 };
-export declare const isMultibaseConfigValid: (mc: MultibaseConfig) => boolean;
-export declare const multibaseConfigErrors: (mc: MultibaseConfig) => {
+export declare const isMultibaseConfigValid: (mc: Partial<MultibaseConfig> | undefined) => boolean;
+export declare const multibaseConfigErrors: (mc: Partial<MultibaseConfig> | undefined) => {
     instancePath: string;
     message: string;
 }[];
-export interface IMultibaseCore {
-    apiKey: string;
-    config: MultibaseConfig;
-    queuedEvents: Array<Event>;
-    eventQueueTimer: any;
-    getAPIKey(): string;
-    getUser(): User;
-    addToEventQueue(event: string, properties: object): void;
-    startEventQueueTimer(): void;
-    executeEventQueue(): void;
-    identify(params: IdentifyParams): void;
-}
 export declare const defaultConfig: MultibaseConfig;
+export type Property = any;
+export type Properties = Record<string, Property>;
 export declare class Event {
     timestamp: string;
     name: string;
-    properties: object;
-    context: object;
+    properties: Properties | undefined;
+    context: Properties;
     constructor({ name, properties }: {
         name: string;
-        properties: object;
+        properties?: Properties;
     });
     toJSON(): object;
 }
 export type IdentifyParams = {
     address: string;
-    properties?: object;
-};
-export type ValidIdentifyParameters = {
-    address: string;
-    properties?: object;
+    properties?: Properties;
 };
 export declare class Identify {
     timestamp: string;
-    context: object;
-    id?: string;
     address?: string;
-    properties?: object;
-    constructor(params: ValidIdentifyParameters);
+    properties?: Properties;
+    context: object;
+    constructor(address: string, properties?: Properties);
     toJSON(): object;
 }
 export declare class User {

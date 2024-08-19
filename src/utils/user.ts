@@ -1,9 +1,9 @@
 import { generateUserId, getSaved, setSaved } from ".";
-import { User, ValidIdentifyParameters } from "../types/base";
+import { User } from "../types/base";
 
-export function getSavedUser():User {
+export function getSavedUser(): User {
     let mbId = getSaved('mbjs_anonymous_id');
-    if(mbId == null){
+    if (mbId == null) {
         mbId = generateUserId();
     }
     setSaved('mbjs_anonymous_id', mbId);
@@ -14,12 +14,4 @@ export function getSavedUser():User {
         properties: {},
     })
     return user;
-}
-
-export function associateUser(params: ValidIdentifyParameters){
-    if(params == null) return
-    const { address } = params;
-    const existingAddress = getSaved("mbjs_address");
-    if(existingAddress === address) return
-    setSaved("mbjs_address", address);
 }

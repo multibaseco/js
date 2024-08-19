@@ -1,6 +1,6 @@
 {
     "name": "@multibase/js",
-    "version": "0.1.15",
+    "version": "1.0.0",
     "description": "",
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",
@@ -27,17 +27,29 @@
         "@rollup/plugin-terser": "^0.4.3",
         "@types/js-cookie": "^3.0.3",
         "@types/node": "^20.2.5",
+        "@types/react": "^18.3.3",
         "@types/ua-parser-js": "^0.7.38",
         "@types/uuid": "^9.0.1",
         "@types/web": "^0.0.119",
         "date-fns": "^2.30.0",
         "date-fns-tz": "^2.0.0",
         "js-cookie": "^3.0.5",
+        "react": "^17.0.2",
+        "react-dom": "^17.0.1",
         "rollup-plugin-sourcemaps": "^0.6.3",
         "rollup-plugin-typescript2": "^0.34.1",
         "typescript": "^5.1.3",
         "ua-parser-js": "^1.0.36",
         "user-agent-data-types": "^0.3.1",
         "uuid": "^9.0.0"
+    },
+    "peerDependencies": {
+        "react": ">=16.8.0",
+        "react-dom": ">=16.8.0"
+    },
+    "peerDependenciesMeta": {
+        "@types/react": {
+            "optional": true
+        }
     }
 }
