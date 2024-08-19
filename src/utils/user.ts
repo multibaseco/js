@@ -7,10 +7,8 @@ export function getSavedUser(): User {
         mbId = generateUserId();
     }
     setSaved('mbjs_anonymous_id', mbId);
-    const address = getSaved('mbjs_address');
     const user = new User({
         anonymousId: mbId!,
-        address: address,
         properties: {},
     })
     return user;

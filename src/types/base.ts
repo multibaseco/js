@@ -88,9 +88,9 @@ export class Identify {
 export class User {
     anonymousId: string;
     address?: string;
-    properties: object;
+    properties: Properties;
 
-    constructor({ anonymousId, address, properties }: { anonymousId: string, address?: string, properties: object }) {
+    constructor({ anonymousId, address, properties }: { anonymousId: string, address?: string, properties: Properties }) {
         this.anonymousId = anonymousId;
         this.address = address;
         this.properties = properties;
