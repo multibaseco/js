@@ -51,10 +51,6 @@ import { identify } from "@multibase/js"
 identify("0xd8da6bf26964af9d7eed9e03e53415d37aa96045")
 
 // Identify with properties
-const userProperties = {
-    plan: "Premium User",
-    email: "vitalik@ethereum.org"
-}
 identify("0xd8da6bf26964af9d7eed9e03e53415d37aa96045", {
     plan: "Premium User",
     email: "vitalik@ethereum.org"
