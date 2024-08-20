@@ -18,7 +18,7 @@ Multibase JS is the first JavaScript SDK for merging your user off-chain, produc
 
 ## [✅ Getting started](#-started)
 #### Get a Multibase account
-To use the Multibase JS SDK, the first thing you have to do is [sign up for a Mutlibase account](https://multibase.co?request=true). Go to the homepage and fill out our form, and we will get back to you ASAP to get you set up.
+To use the Multibase JS SDK, the first thing you have to do is [sign up for a Multibase account](https://multibase.co?request=true). Go to the homepage and fill out our form, and we will get back to you ASAP to get you set up.
 #### Install the Node Package
 When you have your account, you're ready to go! To get started with using Multibase JS, you'll need to install the package to your project with NPM/yarn.
 
@@ -48,23 +48,17 @@ When you identify user by wallet address, they will automatically be synchronize
 import { identify } from "@multibase/js"
 
 // Basic identifying call
-identify({
-    address: "0xd8da6bf26964af9d7eed9e03e53415d37aa96045"
-})
+identify("0xd8da6bf26964af9d7eed9e03e53415d37aa96045")
 
 // Identify with properties
-const userProperties = {
+identify("0xd8da6bf26964af9d7eed9e03e53415d37aa96045", {
     plan: "Premium User",
     email: "vitalik@ethereum.org"
-}
-identify({
-    address: "0xd8da6bf26964af9d7eed9e03e53415d37aa96045",
-    properties: userProperties
 })
 ```
 
 ### Track events
-Tracking product events from your users is the key to understanding product usage over time, and understanding how off-chain activity converts to on-chain transactions. You can track and event with a custom string, or you can track properties along with the string.
+Tracking product events from your users is the key to understanding product usage over time, and understanding how off-chain activity converts to on-chain transactions. You can track an event with a custom string, or you can track properties along with the string.
 
 In your Multibase dashboard, these events will appear alongside on-chain events.
 ```ts
@@ -74,16 +68,15 @@ import { track } from "@multibase/js"
 track("Link Click")
 
 // Track with event properties
-const eventProperties = {
+track("Link Click", {
     type: "Call to Action",
     timeToClick: 10
-}
-track("Link Click", eventProperties)
+})
 ```
 
 ## [❓ Feedback and Support](#-support)
 If you are having trouble setting up the Multibase SDK at all, please reach out to us for help. Here are some helpful links:
 
- - [Live Intercom support on our homepage](https://www.multibase.co)
+ - [Check out our homepage](https://www.multibase.co)
  - [Add an issue on GitHub](https://github.com/multibaseco/js/issues/new/choose)
  - [Email us directly](mailto:support@multibase.co)

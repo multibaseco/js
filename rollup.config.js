@@ -10,6 +10,7 @@ import terser from "@rollup/plugin-terser"
 export default [
     {
         input: 'src/index.ts',
+        external: ['react'],
         treeshake: { propertyReadSideEffects: false },
         output: {
             file: 'dist/index.js',
@@ -18,7 +19,7 @@ export default [
             esModule: true,
             name: '@multibase/js',
             sourcemap: true,
-            globals: { react: 'React', 'react-native': 'ReactNative' },
+            globals: { react: 'React' },
             exports: 'named'
         },
         plugins: [
@@ -28,7 +29,7 @@ export default [
             replace({
                 'process.env.NODE_ENV': () => {
                     const isDev = process.env.ROLLUP_ENV === 'development';
-                    if(isDev) return JSON.stringify('development');
+                    if (isDev) return JSON.stringify('development');
                     return JSON.stringify('production');
                 },
                 'PACKAGE_VERSION': pkg.version,
@@ -44,6 +45,7 @@ export default [
     },
     {
         input: 'src/index.ts',
+        external: ['react'],
         treeshake: { propertyReadSideEffects: false },
         output: {
             file: 'dist/js.esm.js',
@@ -52,7 +54,9 @@ export default [
             esModule: true,
             name: '@multibase/js',
             sourcemap: true,
-            globals: { react: 'React', 'react-native': 'ReactNative' },
+            globals: {
+                react: 'React',
+            },
             exports: 'named'
         },
         plugins: [
@@ -62,7 +66,7 @@ export default [
             replace({
                 'process.env.NODE_ENV': () => {
                     const isDev = process.env.ROLLUP_ENV === 'development';
-                    if(isDev) return JSON.stringify('development');
+                    if (isDev) return JSON.stringify('development');
                     return JSON.stringify('production');
                 },
                 'PACKAGE_VERSION': pkg.version,
