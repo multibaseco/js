@@ -1,8 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import Cookies from 'js-cookie';
 import { BLOCKED_UAS } from '../constants';
-import { format } from 'date-fns';
-import { utcToZonedTime } from 'date-fns-tz';
 
 export function getSaved(key: string) {
     // first check if cookie exists
@@ -60,13 +58,22 @@ export function generateUserId() {
     return uuidv4();
 }
 
-// export function getExactUTCTimeISO() {
-//     const nowUTC = moment().utc().format("YYYY-MM-DD HH:mm:ss.SSS");
-//     return nowUTC;
-// }
 export function getExactUTCTimeISO() {
-    const utcDate = utcToZonedTime(new Date(), 'Etc/UTC');
-    return format(utcDate, 'yyyy-MM-dd HH:mm:ss.SSS');
+    // get the current time
+    const localNow = new Date();
+    // the output of toISOString is always UTC.
+    // format is always: YYYY-MM-DDTHH:mm:ss.sssZ
+    // as long as we dont get to year 10000 any time soon.
+    // see: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString
+    const isoString = localNow.toISOString();
+    // the target format is yyyy-MM-dd HH:mm:ss.SSS
+    // we can safely replace the T with a space, since T will never be in the format
+    let outputString = isoString.replace('T', ' ');
+    // we can safely remove the Z at the end, as it will always be the last character
+    if(outputString.endsWith('Z')) {
+        outputString = outputString.substring(0, outputString.length - 1);
+    }
+    return outputString;
 }
 
 export function debugLog(message: string, debug: boolean) {

@@ -6,6 +6,7 @@ import sourcemaps from "rollup-plugin-sourcemaps"
 import typescript from "rollup-plugin-typescript2"
 import pkg from "./package.json"
 import terser from "@rollup/plugin-terser"
+import { visualizer } from "rollup-plugin-visualizer";
 
 export default [
     {
@@ -78,6 +79,7 @@ export default [
             sourcemaps(),
             typescript(),
             terser(),
+            visualizer(),
         ]
     }
 ]
